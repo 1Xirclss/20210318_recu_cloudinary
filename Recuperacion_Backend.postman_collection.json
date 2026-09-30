@@ -1,0 +1,133 @@
+{
+  "info": {
+    "name": "API de usuarios y Cloudinary",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "userId",
+      "value": "COLOCA_AQUI_EL_ID"
+    }
+  ],
+  "item": [
+    {
+      "name": "1 - Registrar datos y solicitar codigo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ana Lopez\",\n  \"email\": \"20210318@ricaldone.edu.sv\",\n  \"password\": \"secreto123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/register"
+      }
+    },
+    {
+      "name": "2 - Verificar codigo y terminar registro",
+      "request": {
+        "method": "POST",
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "email",
+              "value": "20210318@ricaldone.edu.sv",
+              "type": "text"
+            },
+            {
+              "key": "verificationCodeRequest",
+              "value": "CODIGO_RECIBIDO",
+              "type": "text"
+            },
+            {
+              "key": "profilePhoto",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": "{{baseUrl}}/api/register/verifyCodeEmail"
+      }
+    },
+    {
+      "name": "3 - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"20210318@ricaldone.edu.sv\",\n  \"password\": \"secreto123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/login"
+      }
+    },
+    {
+      "name": "4 - Listar usuarios",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/users"
+      }
+    },
+    {
+      "name": "5 - Consultar usuario",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/users/{{userId}}"
+      }
+    },
+    {
+      "name": "6 - Actualizar usuario",
+      "request": {
+        "method": "PUT",
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Nombre actualizado",
+              "type": "text"
+            },
+            {
+              "key": "profilePhoto",
+              "type": "file",
+              "src": "",
+              "disabled": true
+            }
+          ]
+        },
+        "url": "{{baseUrl}}/api/users/{{userId}}"
+      }
+    },
+    {
+      "name": "7 - Eliminar usuario",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/users/{{userId}}"
+      }
+    }
+  ]
+}
